@@ -1,6 +1,6 @@
 # Hyperfy App Template
 
-This repository serves as a template for developing applications for [Hyperfy](https://hyperfy.io/).
+This repository serves as a template for developing applications for [Hyperfy](https://hyperfy.xyz/).
 
 ## Setup
 

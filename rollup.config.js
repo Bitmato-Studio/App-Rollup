@@ -1,3 +1,4 @@
+import json from "@rollup/plugin-json"
 
 export default [
   {
@@ -8,6 +9,7 @@ export default [
         format: "iife",
         banner: 'props;'
       }
-    ]
-  }
+    ],
+    plugins: [json()]
+  },
 ]

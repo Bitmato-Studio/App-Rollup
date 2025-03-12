@@ -1,11 +1,9 @@
-import { WorldObject } from './worldObject'
-
 export const SEND_RATE = 1 / 8;
 
 export class GameObject {
   constructor(sendRate = SEND_RATE, runSendState=true) {
     this.sendRate = sendRate;
-    this.root = new WorldObject();
+    this.root = app;
 
     
     this.lastSent = 0;
@@ -44,8 +42,8 @@ export class GameObject {
   }
 
   setupBaseState() {
-    this.setState('position', this.root.position.toArray());
-    this.setState('quaternion', this.root.quaternion.toArray());
+    this.setState('position', app.position.toArray());
+    this.setState('quaternion', app.quaternion.toArray());
     this.setState('velocity', [0,0,0]);
     this.setState('props', props);
 
@@ -196,10 +194,10 @@ export class GameObject {
   objectMoveServer(event) {
     try {
       if (event.position) {
-        this.root.position.fromArray(event.position);
+        app.position.fromArray(event.position);
       }
       if (event.quaternion) {
-        this.root.quaternion.fromArray(event.quaternion);
+        app.quaternion.fromArray(event.quaternion);
       }
       app.send('objectMove', event);
     } catch (err) {
@@ -251,8 +249,8 @@ export class GameObject {
       this.lastSent += delta;
       if (this.sendRate <= 0.0 || this.lastSent < this.sendRate) { return; }
 
-      this.setState('position', this.root.position.toArray());
-      this.setState('quaternion', this.root.quaternion.toArray());
+      this.setState('position', app.position.toArray());
+      this.setState('quaternion', app.quaternion.toArray());
     
       app.send('objectMove', {
         position: this.state.get('position'),
@@ -269,8 +267,8 @@ export class GameObject {
 
     if (this.sendRate <= 0.0 || this.lastSent < this.sendRate) { return; }
 
-    this.setState('position', this.root.position.toArray());
-    this.setState('quaternion', this.root.quaternion.toArray());
+    this.setState('position', app.position.toArray());
+    this.setState('quaternion', app.quaternion.toArray());
   
     app.send('objectMove', {
       position: this.state.get('position'),
